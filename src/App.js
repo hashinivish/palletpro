@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './img/PALLETPRO.png'
 import './App.css';
 import "@aws-amplify/ui-react/styles.css";
 import { Amplify } from 'aws-amplify';
@@ -15,8 +15,9 @@ import {
   Image,
   View,
   Card,} from "@aws-amplify/ui-react";
-  
   Amplify.configure(config);
+
+
 function App({signOut}) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

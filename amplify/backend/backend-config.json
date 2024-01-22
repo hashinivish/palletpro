@@ -23,22 +23,24 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
-    },
-    "userPoolGroups": {
-      "dependsOn": [
+    }
+  },
+  "parameters": {
+    "AMPLIFY_storage_palletprob19f3cc4_bucketName": {
+      "usedBy": [
         {
-          "attributes": [
-            "UserPoolId",
-            "AppClientIDWeb",
-            "AppClientID",
-            "IdentityPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "palletproa1565c1b"
+          "category": "storage",
+          "resourceName": "palletprob19f3cc4"
         }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Cognito-UserPool-Groups"
+      ]
+    },
+    "AMPLIFY_storage_palletprob19f3cc4_region": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "palletprob19f3cc4"
+        }
+      ]
     }
   },
   "storage": {
