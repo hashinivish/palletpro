@@ -22,14 +22,24 @@ function App({signOut}) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  
+async function currentSession() {
+  try {
+    const { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
+    return accessToken;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 useEffect(() => {
-  getCurrentUser()
-    .then(user => {
-      const userGroups = user.signInUserSession.accessToken.payload['cognito:groups'];
-      if (userGroups && userGroups.includes('Admin')) {
-        setIsAdmin(true);
+  currentSession()
+    .then(accessToken => {
+      // console.log(accessToken);
+      
+      const userGroups = accessToken.payload['cognito:groups'];
+      // console.log(userGroups);
+      if (userGroups && userGroups[0] == 'Admin') {
+        setIsAdmin(true); 
       }
       setIsLoading(false);
     })
