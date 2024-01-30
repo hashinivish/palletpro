@@ -1,14 +1,28 @@
 .PJListMainContainer {
-    background-color: #d8d8d8;
-    border: 1px solid blue;
-    border-radius:  20px;
-    height: 100%;
+    background-color: #f8f9fa;  /* Lighter background color */
+    border: 2px solid #3498db;  /* Border color */
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Box shadow for a lifted effect */
+    padding: 20px;  /* Add padding for content spacing */
+    height: 82%;
     width: 100%;
+     
 }
 
 .PJListHeader {
     margin-top: 10px;
-    font-size: 23px;
+    font-size: 32px;  /* Larger font size for the header */
     text-align: center;
-    border-bottom: 1px solid #7c7c7c;
+    border-bottom: 3px solid #3498db;  /* Thicker border for header */
+    padding-bottom: 15px;  /* Additional padding to the bottom of the header */
+    color: #3498db;  /* Header text color */
+    text-transform: uppercase;  /* Uppercase the header text */
+    letter-spacing: 1px;
+}
+
+/* Add hover effect for a subtle interaction */
+.PJListHeader:hover {
+    background-color: #3498db;
+    color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
