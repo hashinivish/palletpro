@@ -5,45 +5,52 @@ import axios from 'axios';
 import io from 'socket.io-client';
 
 
-function ListItem() {
-  const [palletJacks, setPalletJacks] = useState([]);
+function ListItem({palletJacks}) {
+  
 
-  useEffect(() => {
-    const socket = io(API_BASE_URL);
+  // useEffect(() => {
+  //   const socket = io(API_BASE_URL);
 
-    socket.on('palletJacks', (data) => {
-      setPalletJacks(data);
-    });
+  //   socket.on('palletJacks', (data) => {
+  //     setPalletJacks(data);
+  //   });
 
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-  const formData = { 
-    "id": "Hello from AWS IoT console"
-  }
-  useEffect(() => {
-    axios.get(API_BASE_URL+'/dataget',formData )
-      .then(response => {
-        setPalletJacks(response.data);
-      })
-      .catch(error => {
-        console.error('There was an error fetching Pallet Jacks data!', error);
-      });
-  }, []);
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, []);
+  
   return (
-    <div className="listContainer">
-      <ul className="scrollableList">
+    <div className="">
+      <ul className="">
         {Array.isArray(palletJacks)
           ? palletJacks.map((jack) => (
               <li key={jack.id}>
-                <div className="jack-item">
-                  <p>Pallet ID: {jack.palletId}</p>
-                  <p>Status: {jack.status}</p>
-                  <p>Location: {jack.location}</p>
-                  <p>Assigned Worker: {jack.assignedWorker}</p>
-                  <p>Battery Level: {jack.batteryLevel}</p>
-                  <p>Current Weight: {jack.currentWeight}</p>
+                <div className={jack.obstacle == "Path is clear" ? "jack-item-1" : "jack-item-2"}>
+                <table>
+                  <tbody>
+                    {/* <tr>
+                      <td>Pallet ID &nbsp;</td>
+                      <td>- &nbsp; {jack.palletId}</td>
+                    </tr> */}
+                    <tr>
+                      <td>Status &nbsp;</td>
+                      <td>- &nbsp; {jack.active}</td>
+                    </tr>
+                    <tr>
+                      <td>Location &nbsp;</td>
+                      <td>- &nbsp; {jack.location}</td>
+                    </tr>
+                    <tr>
+                      <td>Obstacle &nbsp;</td>
+                      <td>- &nbsp; {jack.obstacle}</td>
+                    </tr>
+                    <tr>
+                      <td>Current Weight &nbsp;</td>
+                      <td>- &nbsp; {jack.weight}</td>
+                    </tr>
+                  </tbody>
+                </table>
                 </div>
               </li>
             ))

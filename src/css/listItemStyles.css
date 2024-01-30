@@ -39,8 +39,34 @@
 }
 .scrollableList li {
     margin: 1rem;
-    text-align: center;
-  padding: 1rem;
-  border-radius: 20px;
-  border: 1px solid #424242;
+    text-align: left;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid #424242;
 }
+
+.jack-item-1 {
+  background-color: #B4ECE3;
+  border-radius: 10px;
+  /*border: 1px solid; Add 'solid' as the border style */
+  padding:20px;
+  margin: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+
+.jack-item-2 {
+  background-color: #f56565;
+  border-radius: 10px;
+  /*border: 1px solid; Add 'solid' as the border style */
+  padding:20px;
+  margin: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+

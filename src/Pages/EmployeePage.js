@@ -1,6 +1,11 @@
 import React from 'react';
 import { Heading, Image, View, Card, Button, Grid, useTheme, Flex } from "@aws-amplify/ui-react";
 import logo from './../img/LOGO.png';
+import map10 from './../img/map10.png';
+import map21 from './../img/map21.png';
+import map30 from './../img/map30.png';
+import map32 from './../img/map32.png';
+import map41 from './../img/map41.png';
 import map from './../img/Map.png';
 import {
   Modal,
@@ -16,7 +21,13 @@ import {
   NumberInput,
   NumberInputField,
 } from "@chakra-ui/react";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import "../css/palletJackList.css";
+import "../css/adminLayout.css";
+import axios from "axios";
+import ListItem from "../components/ListItem";
+import EmployeeData from "../components/EmployeesData";
+import { API_BASE_URL } from '../config';
 
 
 const EmployeePage = ({ signOut }) => {
@@ -24,6 +35,61 @@ const EmployeePage = ({ signOut }) => {
   const [isRequestPalletOpen, setIsRequestPalletOpen] = useState(false);
   const onCloseRequestPallet = () => setIsRequestPalletOpen(false);
   const onOpenRequestPallet = () => setIsRequestPalletOpen(true);
+  const [palletJacks, setPalletJacks] = useState([]);
+  const [palletData, setPalletData] = useState({
+    id: '',
+    worker: '',
+    row: '',
+    col: ''
+  });
+
+  const [formData, setFormData] = useState({
+    id: "1"
+  });
+  const [employees, setEmployee] = useState([]);
+  const listPalletJacks = async () => {
+    try {
+      const promises = [];
+      for (let i = 1; i < 2; i++) {
+        const formData = {
+          id: `${i}`
+        };
+        const promise = axios.post(API_BASE_URL+'/dataget', formData, {
+          headers: { 'Content-Type': 'application/json' }
+        });
+        promises.push(promise);
+      }
+  
+      const responses = await Promise.all(promises);
+  
+      const palletJacksData = responses.map(response => response.data);
+      console.log(palletJacksData);
+  
+      setPalletJacks(palletJacksData);
+    } catch (error) {
+      console.error('There was an error fetching Pallet Jacks data!', error);
+    }
+  };
+  
+  useEffect(() => {
+    const fetchDataInterval = setInterval(() => {
+      listPalletJacks();
+    }, 1000);
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(fetchDataInterval);
+  }, []);
+  const handleAddPallet = (e) => {
+    const { name, value } = e.target;
+    setPalletData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  const [palletJacksVisibility, setPalletJacksVisibility] = useState(
+    Array(palletJacks.location).fill(false) // Initialize visibility based on the prop
+  );
+
 
   return (
     <Grid
@@ -103,14 +169,27 @@ const EmployeePage = ({ signOut }) => {
       columnEnd="2"
       backgroundColor="#140d07"
     >
-     <Image src={map}/>
+     {palletJacks && Array.isArray(palletJacks) && palletJacks.length > 0 && palletJacks[0].location && (
+        palletJacks[0].location === '1, 0' ? <Image src={map10} /> :
+        palletJacks[0].location === '2, 1' ? <Image src={map21} /> :
+        palletJacks[0].location === '3, 0' ? <Image src={map30} /> :
+        palletJacks[0].location === '3, 2' ? <Image src={map32} /> :
+        palletJacks[0].location === '4, 1' ? <Image src={map41} /> : null
+)}
     </Card>
     <Card
       columnStart="2"
       columnEnd="-1"
       backgroundColor="#140d07"
     >
-      Main
+      <div className="PJListMainContainer">
+          <div className="PJListHeader">
+            <h1>Pallet Jacks</h1>
+          </div>
+          <div className="PJListContainer">
+          <ListItem palletJacks={palletJacks}/>
+          </div>
+        </div>
     </Card>
   </Grid>
   );

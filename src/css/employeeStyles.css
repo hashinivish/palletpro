@@ -40,7 +40,19 @@
 .scrollableList li {
     margin: 1rem;
     text-align: center;
-  padding: 1rem;
+  padding: 1px;
   border-radius: 20px;
   border: 1px solid #424242;
+}
+
+.employee-item{
+  background-color: #68d391;
+  border-radius: 10px;
+  /*border: 1px solid; Add 'solid' as the border style */
+  padding:20px;
+  margin: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
 }
