@@ -4,14 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Amplify } from 'aws-amplify';
+import { ChakraProvider } from '@chakra-ui/react';
 import config from './aws-exports';
 Amplify.configure(config);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
+// var cors = require('cors');
+// app.use(cors());
 root.render(
   <React.StrictMode>
-    <App />
+    <ChakraProvider>
+      <App />
+    </ChakraProvider>
   </React.StrictMode>
 );
 

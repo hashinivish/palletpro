@@ -83,11 +83,85 @@ import AdminPage from './Pages/AdminPage';
 import EmployeePage from './Pages/EmployeePage';
 import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
+import { ChakraProvider } from '@chakra-ui/react'
+
 
 Amplify.configure(config);
 
+
 function App({ signOut }) {
   const [userRole, setUserRole] = useState(null);
+  // Import the AWS SDK for JavaScript
+// const AWS = require('aws-sdk');
+
+// // Create an STS (Security Token Service) client
+// const sts = new AWS.STS();
+
+// // Specify the ARN of the IAM role in the other AWS account
+// const roleToAssume = 'arn:aws:iam::997905384037:role/dollyDynamo';
+
+// // Assume the role
+// sts.assumeRole({
+//   RoleArn: roleToAssume,
+//   RoleSessionName: 'Session1', // Provide a unique session name
+// }, (err, data) => {
+//   if (err) {
+//     console.error('Error assuming role:', err);
+//   } else {
+//     // Create a new AWS DynamoDB client using the temporary credentials obtained
+//     const dynamoDB = new AWS.DynamoDB({
+//       accessKeyId: data.Credentials.accessKeyId,
+//       secretAccessKey: data.Credentials.SecretAccessKey,
+//       sessionToken: data.Credentials.SessionToken,
+//     });
+
+//     const params = {
+//       TableName: 'empDataDB', // Specify the name of your DynamoDB table
+//     };
+//     dynamoDB.scan(params, (err, data) => {
+//       if (err) {
+//         console.error('Error retrieving data from DynamoDB:', err);
+//       } else {
+//         // Process the retrieved data
+//         console.log('Retrieved data from DynamoDB:', data);
+//         // Data will be in the format { Items: [Array of items], ...}
+//       }
+//     });
+//   }
+// });
+// const AWS = require('aws-sdk');
+// AWS.config.update({
+//   region: 'us-east-1', 
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+// });
+// const dynamodb = new AWS.DynamoDB.DocumentClient();
+
+// async function fetchData() {
+//   const params = {
+//     TableName: 'PalletProUsers',
+//     KeyConditionExpression: 'UserID = :value',
+//     ExpressionAttributeValues: {
+//       ':value': '001', // Replace with the UserID you want to query
+//     },
+//   };
+
+//   try {
+//     const data = await dynamodb.query(params).promise();
+//     console.log('Retrieved Data:', data.Items);
+
+//     // Handle the data in your frontend as needed.
+//   } catch (error) {
+//     console.error('Error:', error);
+
+//     // Handle the error in your frontend as needed.
+//   }
+// }
+
+// // Call the fetchData function to retrieve data from DynamoDB.
+// fetchData();
+
+
 
   useEffect(() => {
     const currentSession = async () => {
@@ -102,7 +176,7 @@ function App({ signOut }) {
 
     currentSession();
   }, []);
-
+  
   const renderContent = () => {
     switch (userRole) {
       case 'Admin':

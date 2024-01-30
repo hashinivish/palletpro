@@ -1,5 +1,5 @@
 import React from 'react';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { Authenticator, withAuthenticator } from '@aws-amplify/ui-react';
 import { Button, Heading, Image, View, Card } from "@aws-amplify/ui-react";
 import logo from './../img/PALLETPRO.png';
 
@@ -9,9 +9,9 @@ const LandingPage = () => (
     <Image src={logo} />
     <Card>
       
-      <Button>Sign In/Up</Button>
+      <Button onClick={Authenticator}>Sign In/Up</Button>
     </Card>
   </View>
 );
 
-export default withAuthenticator(LandingPage);
+export default LandingPage;

@@ -2,10 +2,28 @@ import React from 'react';
 import { Heading, Image, View, Card, Button, Grid, useTheme, Flex } from "@aws-amplify/ui-react";
 import logo from './../img/LOGO.png';
 import map from './../img/Map.png';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  FormControl,
+  FormLabel,
+  Input,
+  NumberInput,
+  NumberInputField,
+} from "@chakra-ui/react";
+import { useState } from 'react';
 
 
 const EmployeePage = ({ signOut }) => {
   const { tokens } = useTheme();
+  const [isRequestPalletOpen, setIsRequestPalletOpen] = useState(false);
+  const onCloseRequestPallet = () => setIsRequestPalletOpen(false);
+  const onOpenRequestPallet = () => setIsRequestPalletOpen(true);
 
   return (
     <Grid
@@ -28,10 +46,55 @@ const EmployeePage = ({ signOut }) => {
       <Flex alignItems="center" justifyContent="space-between">
             <Image src={logo} width="6%" />
           <Flex>
-          <Button colorTheme="info" variation="default" backgroundColor="#4fb9af"  >
+          <Button colorTheme="hover" variation="default" backgroundColor="#B4ECE3" onClick={onOpenRequestPallet}  >
           Request a Pallet
           </Button>
-          <Button colorTheme="info" variation="default" backgroundColor="#4fb9af" onClick={signOut}>Sign out</Button>
+          <Modal isOpen={isRequestPalletOpen} onClose={onCloseRequestPallet}>
+            <ModalOverlay className="modalFileter" />
+            <ModalContent
+              bg="white"
+              color="black"
+              borderRadius="8px"
+              boxShadow="lg"
+              maxW="400px"
+              mx="auto"
+              my="auto"
+            >
+              <ModalHeader
+                bg="teal.500"
+                color="white"
+                p={4}
+                fontSize="2xl"
+                borderTopLeftRadius="8px"
+                borderTopRightRadius="8px"
+              >
+                Request a Pallet
+              </ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <FormControl>
+                  <FormLabel>Section Number</FormLabel>
+                  <NumberInput className = 'inputForms' min={0}>
+                    <NumberInputField />
+                  </NumberInput>
+                  <FormLabel>Block Number</FormLabel>
+                  <NumberInput className = 'inputForms' min={0}>
+                    <NumberInputField />
+                  </NumberInput>
+                </FormControl>
+              </ModalBody>
+
+              <ModalFooter>
+                <Button colorScheme="teal" mr={3} onClick={onCloseRequestPallet}>
+                  Request
+                </Button>
+                <Button variant="ghost" onClick={onCloseRequestPallet}>
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+          <Button colorTheme="hover" variation="default" backgroundColor="#B4ECE3" onClick={signOut}>Sign out</Button>
           </Flex>
         </Flex>
     </Card>
