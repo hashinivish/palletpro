@@ -14,4 +14,4 @@ const LandingPage = () => (
   </View>
 );
 
-export default LandingPage;
+export default withAuthenticator(LandingPage);
